@@ -1,9 +1,0 @@
-{
-  "id": 5,
-  "name": "XSS + CSRF Chain",
-  "category": "Web",
-  "difficulty": "Hard",
-  "points": 300,
-  "description": "Chain XSS and CSRF to perform a sophisticated attack.",
-  "flag": "FLAG{ch41n_4tt4ck_succ3ss}"
-}

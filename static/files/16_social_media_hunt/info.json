@@ -1,9 +1,0 @@
-{
-  "id": 16,
-  "name": "Social Media Hunt",
-  "category": "OSINT",
-  "difficulty": "Medium",
-  "points": 150,
-  "description": "Find the hacker: ctf_hacker_2024. Discover their name, language, and city.",
-  "flag": "FLAG{Alice_Rust_Berlin}"
-}

@@ -1,9 +1,0 @@
-{
-  "encrypted": "G6zHsm_vlNla_m7Ry_FqnOh_YoqOw",
-  "hint": "Multi-layer Caesar: position shift + character manipulation",
-  "solution_steps": [
-    "1. Identify the shift pattern (position-based)",
-    "2. Reverse the case swapping on every 3rd character",
-    "3. Apply reverse Caesar shift with variable positions"
-  ]
-}

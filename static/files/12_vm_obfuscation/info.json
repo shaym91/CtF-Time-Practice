@@ -1,9 +1,0 @@
-{
-  "id": 12,
-  "name": "VM Obfuscation",
-  "category": "Reverse",
-  "difficulty": "Insane",
-  "points": 500,
-  "description": "Binary implementing a custom virtual machine. Reverse the bytecode.",
-  "flag": "FLAG{v1rtu4l_m4ch1n3_d3c0d3d}"
-}

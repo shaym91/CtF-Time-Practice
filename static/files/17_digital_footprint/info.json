@@ -1,9 +1,0 @@
-{
-  "id": 17,
-  "name": "Digital Footprint",
-  "category": "OSINT",
-  "difficulty": "Hard",
-  "points": 300,
-  "description": "Advanced digital footprint investigation. Follow the traces.",
-  "flag": "FLAG{d1g1t4l_tr4c3s_f0und}"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 8,
-  "name": "Memory Dump",
-  "category": "Forensics",
-  "difficulty": "Hard",
-  "points": 300,
-  "description": "A memory dump from a compromised system. Find the evidence.",
-  "flag": "FLAG{m3m0ry_s3cr3ts_f0und}"
-}
