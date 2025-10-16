@@ -12,16 +12,10 @@ app.secret_key = 'ctf_secret_key_2024_ultra_secure_random_key'
 BD_TZ = pytz.timezone('Asia/Dhaka')
 
 # Competition times - 5 PM to 5 AM (12 hours)
-# Get today's 5 PM or tomorrow's 5 PM depending on current time
+# Set to start today (October 16, 2025) at 5 PM
 now = datetime.now(BD_TZ)
-if now.hour < 17:
-    # If before 5 PM, start today at 5 PM
-    START_TIME = now.replace(hour=17, minute=0, second=0, microsecond=0)
-else:
-    # If after 5 PM, start tomorrow at 5 PM
-    START_TIME = (now + timedelta(days=1)).replace(hour=17, minute=0, second=0, microsecond=0)
-
-END_TIME = (START_TIME + timedelta(hours=12)).replace(hour=5, minute=0, second=0, microsecond=0)
+START_TIME = now.replace(year=2025, month=10, day=16, hour=17, minute=0, second=0, microsecond=0)
+END_TIME = START_TIME + timedelta(hours=12)
 
 # Max contestants
 MAX_CONTESTANTS = 50
