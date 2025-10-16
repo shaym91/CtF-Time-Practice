@@ -1,0 +1,8 @@
+{
+  "id": 10,
+  "name": "Basic Crackme",
+  "category": "Reverse",
+  "difficulty": "Medium",
+  "points": 150,
+  "description": "A password checker program. Find the correct password."
+}

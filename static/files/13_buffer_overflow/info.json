@@ -1,0 +1,8 @@
+{
+  "id": 13,
+  "name": "Buffer Overflow",
+  "category": "Pwn",
+  "difficulty": "Medium",
+  "points": 150,
+  "description": "Classic buffer overflow. Overwrite the return address."
+}

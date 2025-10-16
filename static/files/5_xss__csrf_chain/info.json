@@ -1,0 +1,7 @@
+{
+  "id": 5,
+  "name": "XSS + CSRF Chain",
+  "category": "Web",
+  "difficulty": "Hard",
+  "points": 300
+}

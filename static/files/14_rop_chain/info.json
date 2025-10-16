@@ -1,0 +1,8 @@
+{
+  "id": 14,
+  "name": "ROP Chain",
+  "category": "Pwn",
+  "difficulty": "Hard",
+  "points": 300,
+  "description": "Build a ROP chain to execute win() function."
+}

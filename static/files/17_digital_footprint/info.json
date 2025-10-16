@@ -1,0 +1,8 @@
+{
+  "id": 17,
+  "name": "Digital Footprint",
+  "category": "OSINT",
+  "difficulty": "Hard",
+  "points": 300,
+  "description": "Advanced digital footprint investigation. Follow the traces."
+}

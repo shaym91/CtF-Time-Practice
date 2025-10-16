@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register - CTF 2024</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>🎯 CTF COMPETITION 2024</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="form-container fade-in">
+            <h2 style="text-align: center; color: var(--primary-color); font-family: 'Orbitron', sans-serif; margin-bottom: 2rem;">REGISTER</h2>
+            <form method="POST">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Register</button>
+            </form>
+            <p style="text-align: center; margin-top: 2rem;">
+                Already have an account? <a href="{{ url_for('login') }}" style="color: var(--primary-color);">Login</a>
+            </p>
+        </div>
+    </main>
+    <footer><p>&copy; 2024 CTF Competition</p></footer>
+</body>
+</html>

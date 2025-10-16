@@ -1,0 +1,8 @@
+{
+  "id": 18,
+  "name": "Deep Investigation",
+  "category": "OSINT",
+  "difficulty": "Insane",
+  "points": 500,
+  "description": "Intelligence analysis with multi-source correlation."
+}

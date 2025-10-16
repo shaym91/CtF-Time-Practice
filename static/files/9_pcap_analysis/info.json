@@ -1,0 +1,8 @@
+{
+  "id": 9,
+  "name": "PCAP Analysis",
+  "category": "Forensics",
+  "difficulty": "Insane",
+  "points": 500,
+  "description": "Network packet capture with encrypted protocols. Decrypt and analyze."
+}

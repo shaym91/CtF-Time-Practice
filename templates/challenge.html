@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ challenge.name }} - CTF 2024</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>🎯 CTF COMPETITION 2024</h1>
+            <div class="timer">⏱️ {{ time_remaining }}</div>
+            <nav>
+                <a href="{{ url_for('challenges') }}">Challenges</a>
+                <a href="{{ url_for('scoreboard') }}">Scoreboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="challenge-card fade-in" style="padding: 3rem;">
+                <div class="challenge-header">
+                    <div class="challenge-name" style="font-size: 2.5rem;">{{ challenge.name }}</div>
+                    <div class="challenge-points" style="font-size: 1.5rem;">{{ challenge.points }} pts</div>
+                </div>
+                <div style="margin: 2rem 0;">
+                    <span class="challenge-category">{{ challenge.category }}</span>
+                    <span style="background: rgba(138, 43, 226, 0.2); color: #8a2be2; padding: 0.3rem 1rem; border-radius: 15px; font-size: 0.9rem; display: inline-block; margin-left: 0.5rem;">INSANE LEVEL</span>
+                </div>
+                <div class="challenge-description" style="font-size: 1.2rem; margin: 2rem 0;">
+                    {{ challenge.description }}
+                </div>
+                
+                <div style="background: rgba(0, 255, 65, 0.1); padding: 1.5rem; border-radius: 10px; margin: 2rem 0;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">📁 Challenge Files</h3>
+                    <a href="{{ url_for('download_file', filename=challenge.id|string + '_' + challenge.name|lower|replace(' ', '_') + '/challenge.zip') }}" class="btn">Download Challenge Files</a>
+                </div>
+
+                {% if solved %}
+                <div class="challenge-solved" style="font-size: 1.3rem; padding: 2rem;">
+                    ✓ YOU HAVE SOLVED THIS CHALLENGE!
+                </div>
+                {% else %}
+                <div style="margin-top: 3rem;">
+                    <h3 style="color: var(--primary-color); font-family: 'Orbitron', sans-serif; margin-bottom: 1rem;">SUBMIT FLAG</h3>
+                    <form id="flagForm" style="display: flex; gap: 1rem;">
+                        <input type="text" id="flagInput" placeholder="FLAG{...}" style="flex: 1; padding: 1rem; background: rgba(10, 14, 39, 0.8); border: 2px solid rgba(0, 255, 65, 0.2); border-radius: 10px; color: var(--text-color); font-size: 1rem;">
+                        <button type="submit" class="btn">SUBMIT</button>
+                    </form>
+                    <div id="result" style="margin-top: 1rem;"></div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="{{ url_for('challenges') }}" class="btn">← Back to Challenges</a>
+            </div>
+        </div>
+    </main>
+    <footer><p>&copy; 2024 CTF Competition</p></footer>
+
+    <script>
+    document.getElementById('flagForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const flag = document.getElementById('flagInput').value;
+        const resultDiv = document.getElementById('result');
+        
+        const formData = new FormData();
+        formData.append('flag', flag);
+        
+        const response = await fetch('{{ url_for("submit", challenge_id=challenge.id) }}', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            resultDiv.innerHTML = '<div class="alert alert-success">' + data.message + '</div>';
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        } else {
+            resultDiv.innerHTML = '<div class="alert alert-danger">' + data.message + '</div>';
+        }
+    });
+    </script>
+</body>
+</html>
