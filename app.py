@@ -142,6 +142,12 @@ def challenges():
                              active=False)
     
     username = session['username']
+    
+    # Check if user exists in users dictionary, if not redirect to login
+    if username not in users:
+        session.pop('username', None)
+        return redirect(url_for('login'))
+    
     solved_ids = users[username]['solved']
     
     return render_template('challenges.html', 
@@ -163,6 +169,12 @@ def challenge(challenge_id):
         return "Challenge not found!", 404
     
     username = session['username']
+    
+    # Check if user exists in users dictionary, if not redirect to login
+    if username not in users:
+        session.pop('username', None)
+        return redirect(url_for('login'))
+    
     solved = challenge_id in users[username]['solved']
     
     return render_template('challenge.html', 
@@ -179,6 +191,11 @@ def submit(challenge_id):
         return jsonify({'success': False, 'message': 'Competition not active'})
     
     username = session['username']
+    
+    # Check if user exists in users dictionary
+    if username not in users:
+        return jsonify({'success': False, 'message': 'User not found, please login again'})
+    
     flag = request.form['flag'].strip()
     
     challenge = next((c for c in CHALLENGES if c['id'] == challenge_id), None)
