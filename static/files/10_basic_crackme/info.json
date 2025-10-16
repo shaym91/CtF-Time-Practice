@@ -1,0 +1,9 @@
+{
+  "id": 10,
+  "name": "Basic Crackme",
+  "category": "Reverse",
+  "difficulty": "Medium",
+  "points": 150,
+  "description": "A password checker program. Find the correct password.",
+  "flag": "FLAG{r3v3rs3_3ng1n33r1ng_w1n}"
+}

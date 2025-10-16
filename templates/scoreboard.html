@@ -1,112 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Scoreboard - CTF</title>
-    <meta http-equiv="refresh" content="30">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-        }
-        h1 {
-            color: #667eea;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .scoreboard-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .scoreboard-table th {
-            background: #667eea;
-            color: white;
-            padding: 15px;
-            text-align: left;
-        }
-        .scoreboard-table td {
-            padding: 15px;
-            border-bottom: 1px solid #dee2e6;
-        }
-        .scoreboard-table tr:hover {
-            background: #f8f9fa;
-        }
-        .rank {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #667eea;
-        }
-        .rank-1 { color: #ffd700; }
-        .rank-2 { color: #c0c0c0; }
-        .rank-3 { color: #cd7f32; }
-        .score {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #51cf66;
-        }
-        .back-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #667eea;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .auto-refresh {
-            text-align: center;
-            color: #6c757d;
-            margin-top: 20px;
-            font-size: 0.9em;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoreboard - CTF 2024</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        // Auto-refresh scoreboard every 30 seconds
+        setTimeout(function() {
+            location.reload();
+        }, 30000);
+    </script>
 </head>
 <body>
-    <div class="container">
-        <a href="/" class="back-btn">← Back to Dashboard</a>
-        
-        <h1>🏆 Scoreboard</h1>
-        
-        <table class="scoreboard-table">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Username</th>
-                    <th>Score</th>
-                    <th>Solves</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for player in leaderboard %}
-                <tr>
-                    <td class="rank rank-{{ loop.index }}">
-                        {% if loop.index == 1 %}🥇
-                        {% elif loop.index == 2 %}🥈
-                        {% elif loop.index == 3 %}🥉
-                        {% else %}{{ loop.index }}
-                        {% endif %}
-                    </td>
-                    <td><strong>{{ player.username }}</strong></td>
-                    <td class="score">{{ player.score }}</td>
-                    <td>{{ player.solves }}/{{ total_challenges }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        
-        <div class="auto-refresh">
-            Auto-refreshes every 30 seconds
+    <header>
+        <div class="header-content">
+            <h1>🎯 CTF COMPETITION 2024</h1>
+            <div class="timer">⏱️ {{ time_remaining }}</div>
+            <nav>
+                <a href="{{ url_for('challenges') }}">Challenges</a>
+                <a href="{{ url_for('scoreboard') }}">Scoreboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </nav>
         </div>
-    </div>
+    </header>
+
+    <main>
+        <div class="scoreboard fade-in">
+            <div class="scoreboard-header">
+                <h2>🏆 LIVE SCOREBOARD</h2>
+                <p style="margin-top: 1rem; font-size: 1.2rem;">Auto-refreshes every 30 seconds</p>
+            </div>
+
+            <table class="scoreboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Score</th>
+                        <th>Solved</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for username, data in leaderboard %}
+                    <tr>
+                        <td>
+                            <span class="rank rank-{{ loop.index if loop.index <= 3 else '' }}">
+                                {% if loop.index == 1 %}
+                                    🥇 #1
+                                {% elif loop.index == 2 %}
+                                    🥈 #2
+                                {% elif loop.index == 3 %}
+                                    🥉 #3
+                                {% else %}
+                                    #{{ loop.index }}
+                                {% endif %}
+                            </span>
+                        </td>
+                        <td><strong>{{ username }}</strong></td>
+                        <td><strong style="color: var(--primary-color); font-size: 1.2rem;">{{ data.score }}</strong> points</td>
+                        <td>{{ data.solved|length }} / 18</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% if not leaderboard %}
+            <div style="text-align: center; padding: 3rem; color: var(--text-color);">
+                <p style="font-size: 1.2rem;">No submissions yet. Be the first to solve a challenge!</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(26, 31, 58, 0.6); border-radius: 15px; border: 2px solid rgba(0, 255, 65, 0.3);">
+            <h3 style="color: var(--primary-color); font-family: 'Orbitron', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">Competition Stats</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div>
+                    <p style="color: var(--text-color); margin-bottom: 0.5rem;">Total Players</p>
+                    <p style="color: var(--primary-color); font-size: 2rem; font-weight: 700;">{{ leaderboard|length }}</p>
+                </div>
+                <div>
+                    <p style="color: var(--text-color); margin-bottom: 0.5rem;">Total Challenges</p>
+                    <p style="color: var(--warning-color); font-size: 2rem; font-weight: 700;">18</p>
+                </div>
+                <div>
+                    <p style="color: var(--text-color); margin-bottom: 0.5rem;">Max Points</p>
+                    <p style="color: var(--danger-color); font-size: 2rem; font-weight: 700;">2,700</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CTF Competition | Real-time leaderboard updates</p>
+    </footer>
 </body>
 </html>
-

@@ -3,250 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CTF Competition</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            padding: 30px;
-        }
-        header {
-            text-align: center;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        h1 {
-            color: #667eea;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        .user-info {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 3em;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .timer {
-            font-size: 2em;
-            font-weight: bold;
-            color: #667eea;
-            text-align: center;
-            margin: 20px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-        .timer.warning { color: #ff6b6b; }
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin: 30px 0;
-        }
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: transform 0.2s;
-        }
-        .btn:hover { transform: translateY(-2px); }
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-        .btn-success {
-            background: #51cf66;
-            color: white;
-        }
-        .btn-danger {
-            background: #ff6b6b;
-            color: white;
-        }
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .category-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            border: 2px solid #dee2e6;
-        }
-        .category-card h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid #dee2e6;
-            color: #6c757d;
-        }
-    </style>
+    <title>CTF Competition 2024</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎯 CTF Competition 2024</h1>
-            <p>Individual Competition | 12 Hours | {{ challenges|length }} Challenges</p>
-        </header>
+    <header>
+        <div class="header-content">
+            <h1>🎯 CTF COMPETITION 2024</h1>
+            <nav>
+                <a href="{{ url_for('register') }}">Register</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            </nav>
+        </div>
+    </header>
 
-        <div class="user-info">
-            <div>
-                <strong>👤 {{ username }}</strong> | 
-                Score: <strong>{{ user_score }}</strong> | 
-                Solved: <strong>{{ user_solves|length }}/{{ challenges|length }}</strong>
-            </div>
-            <a href="/logout" class="btn btn-danger">Logout</a>
-        </div>
-
-        {% if not competition_started %}
-        <div class="timer">
-            Competition starts in: <span id="countdown">{{ time_until_start }}</span>
-        </div>
-        {% elif competition_ended %}
-        <div class="timer warning">
-            Competition Ended!
-        </div>
-        {% else %}
-        <div class="timer" id="timer">
-            Time Remaining: <span id="countdown">{{ time_remaining }}</span>
-        </div>
-        {% endif %}
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div>Your Score</div>
-                <div class="stat-number">{{ user_score }}</div>
-                <div>Points</div>
-            </div>
-            <div class="stat-card">
-                <div>Challenges Solved</div>
-                <div class="stat-number">{{ user_solves|length }}</div>
-                <div>/ {{ challenges|length }}</div>
-            </div>
-            <div class="stat-card">
-                <div>Time Left</div>
-                <div class="stat-number" id="hours-left">-</div>
-                <div>Hours</div>
+    <main>
+        <div class="hero fade-in">
+            <h2>CAPTURE THE FLAG</h2>
+            <p>18 Challenges | 6 Categories | 12 Hours</p>
+            <p><strong>Start:</strong> 6:00 PM BD Time | <strong>End:</strong> 6:00 AM BD Time (Next Day)</p>
+            <p><strong>Max Contestants:</strong> 10 | <strong>Format:</strong> Individual</p>
+            <div style="margin-top: 2rem;">
+                <a href="{{ url_for('register') }}" class="btn">Register Now</a>
+                <a href="{{ url_for('login') }}" class="btn" style="margin-left: 1rem;">Login</a>
             </div>
         </div>
 
-        <div class="nav-buttons">
-            <a href="/challenges" class="btn btn-primary">🎯 View Challenges</a>
-            <a href="/scoreboard" class="btn btn-success">🏆 Scoreboard</a>
+        <div style="background: rgba(26, 31, 58, 0.6); border-radius: 20px; padding: 3rem; margin-top: 3rem; border: 2px solid rgba(0, 255, 65, 0.3);">
+            <h3 style="color: var(--primary-color); font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 2rem;">Challenge Categories</h3>
+            
+            <div class="challenges-grid">
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-name">🔐 CRYPTO</div>
+                        <div class="challenge-points">3 Challenges</div>
+                    </div>
+                    <p>Caesar Twist (150pts) • RSA Madness (300pts) • Quantum Cipher (500pts)</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-name">🌐 WEB</div>
+                        <div class="challenge-points">3 Challenges</div>
+                    </div>
+                    <p>SQL Injection (150pts) • XSS+CSRF Chain (300pts) • Prototype Pollution (500pts)</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-name">🔍 FORENSICS</div>
+                        <div class="challenge-points">3 Challenges</div>
+                    </div>
+                    <p>Hidden Data (150pts) • Memory Dump (300pts) • PCAP Analysis (500pts)</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-name">🔧 REVERSE</div>
+                        <div class="challenge-points">3 Challenges</div>
+                    </div>
+                    <p>Basic Crackme (150pts) • Anti-Debug (300pts) • VM Obfuscation (500pts)</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-name">💥 PWN</div>
+                        <div class="challenge-points">3 Challenges</div>
+                    </div>
+                    <p>Buffer Overflow (150pts) • ROP Chain (300pts) • Heap Exploit (500pts)</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-name">🕵️ OSINT</div>
+                        <div class="challenge-points">3 Challenges</div>
+                    </div>
+                    <p>Social Media Hunt (150pts) • Digital Footprint (300pts) • Deep Investigation (500pts)</p>
+                </div>
+            </div>
         </div>
 
-        <h2 style="text-align: center; margin: 30px 0;">Challenge Categories</h2>
-        <div class="category-grid">
-            <div class="category-card">
-                <h3>🔐 Crypto</h3>
-                <p>3 challenges</p>
-                <p>150 | 300 | 500 pts</p>
-            </div>
-            <div class="category-card">
-                <h3>🌐 Web</h3>
-                <p>3 challenges</p>
-                <p>150 | 300 | 500 pts</p>
-            </div>
-            <div class="category-card">
-                <h3>🔍 Forensics</h3>
-                <p>3 challenges</p>
-                <p>150 | 300 | 500 pts</p>
-            </div>
-            <div class="category-card">
-                <h3>🔧 Reverse</h3>
-                <p>3 challenges</p>
-                <p>150 | 300 | 500 pts</p>
-            </div>
-            <div class="category-card">
-                <h3>💥 Pwn</h3>
-                <p>3 challenges</p>
-                <p>150 | 300 | 500 pts</p>
-            </div>
-            <div class="category-card">
-                <h3>🕵️ OSINT</h3>
-                <p>3 challenges</p>
-                <p>150 | 300 | 500 pts</p>
-            </div>
+        <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(26, 31, 58, 0.6); border-radius: 15px; border: 2px solid rgba(255, 149, 0, 0.3);">
+            <h3 style="color: var(--warning-color); font-family: 'Orbitron', sans-serif; font-size: 1.8rem; margin-bottom: 1rem;">⚡ TOTAL: 2,700 POINTS</h3>
+            <p style="font-size: 1.2rem;">Are you ready for the challenge?</p>
         </div>
+    </main>
 
-        <footer>
-            <p>Competition Time: {{ start_time }} - {{ end_time }} (BD Time)</p>
-            <p>Maximum {{ challenges|length }} participants | Individual competition</p>
-            <p>All flags must be submitted in the specified format</p>
-        </footer>
-    </div>
-
-    <script>
-        // Update timer every second
-        function updateTimer() {
-            fetch('/api/time')
-                .then(r => r.json())
-                .then(data => {
-                    const remaining = data.time_remaining_seconds;
-                    const hours = Math.floor(remaining / 3600);
-                    const minutes = Math.floor((remaining % 3600) / 60);
-                    const seconds = Math.floor(remaining % 60);
-                    
-                    document.getElementById('countdown').textContent = 
-                        `${hours}h ${minutes}m ${seconds}s`;
-                    document.getElementById('hours-left').textContent = hours;
-                    
-                    const timer = document.getElementById('timer');
-                    if (hours < 1 && timer) {
-                        timer.classList.add('warning');
-                    }
-                    
-                    if (remaining <= 0) {
-                        window.location.reload();
-                    }
-                });
-        }
-        
-        setInterval(updateTimer, 1000);
-        updateTimer();
-    </script>
+    <footer>
+        <p>&copy; 2024 CTF Competition | May the best hacker win! 🚀</p>
+    </footer>
 </body>
 </html>
-

@@ -1,139 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Challenges - CTF</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        header {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .category-section {
-            margin-bottom: 40px;
-        }
-        .category-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px 10px 0 0;
-            font-size: 1.5em;
-        }
-        .challenges-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            background: white;
-            border-radius: 0 0 10px 10px;
-        }
-        .challenge-card {
-            border: 2px solid #dee2e6;
-            border-radius: 10px;
-            padding: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-        }
-        .challenge-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .challenge-card.solved {
-            border-color: #51cf66;
-            background: #f0fdf4;
-        }
-        .challenge-title {
-            font-size: 1.3em;
-            margin-bottom: 10px;
-            color: #667eea;
-        }
-        .challenge-card.solved .challenge-title {
-            color: #51cf66;
-        }
-        .challenge-meta {
-            display: flex;
-            justify-content: space-between;
-            margin: 15px 0;
-            font-size: 0.9em;
-            color: #6c757d;
-        }
-        .points {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #667eea;
-        }
-        .difficulty {
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            background: #e7f5ff;
-            color: #0c5460;
-        }
-        .solved-badge {
-            background: #51cf66;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-    </style>
+    <title>Challenges - CTF 2024</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎯 Challenges</h1>
-            <a href="/" class="btn btn-primary">← Back to Dashboard</a>
-        </header>
-
-        {% for category, challenges in categories.items() %}
-        <div class="category-section">
-            <div class="category-header">
-                {{ category }}
-            </div>
-            <div class="challenges-grid">
-                {% for challenge in challenges %}
-                <div class="challenge-card {% if challenge.solved %}solved{% endif %}" 
-                     onclick="window.location.href='/challenge/{{ challenge.name }}'">
-                    <div class="challenge-title">
-                        {% if challenge.solved %}✅{% endif %} {{ challenge.name }}
-                    </div>
-                    <p>{{ challenge.description[:100] }}...</p>
-                    <div class="challenge-meta">
-                        <span class="points">{{ challenge.value }} pts</span>
-                    </div>
-                    <div style="text-align: center; color: #6c757d;">
-                        <small>{{ challenge.solve_count }} solves</small>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+    <header>
+        <div class="header-content">
+            <h1>🎯 CTF COMPETITION 2024</h1>
+            <div class="timer">⏱️ {{ time_remaining }}</div>
+            <nav>
+                <a href="{{ url_for('challenges') }}">Challenges</a>
+                <a href="{{ url_for('scoreboard') }}">Scoreboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </nav>
         </div>
-        {% endfor %}
-    </div>
+    </header>
+    <main>
+        <div style="text-align: center; padding: 2rem; background: rgba(26, 31, 58, 0.6); border-radius: 15px; margin-bottom: 2rem; border: 2px solid rgba(0, 255, 65, 0.3);">
+            <h2 style="color: var(--primary-color); font-family: 'Orbitron', sans-serif; font-size: 2rem;">18 CHALLENGES</h2>
+            <p style="margin-top: 1rem; font-size: 1.2rem;">Solve challenges to earn points and climb the leaderboard!</p>
+        </div>
+
+        <div class="challenges-grid">
+            {% for challenge in challenges %}
+            <div class="challenge-card fade-in">
+                <div class="challenge-header">
+                    <div class="challenge-name">{{ challenge.name }}</div>
+                    <div class="challenge-points">{{ challenge.points }} pts</div>
+                </div>
+                <div>
+                    <span class="challenge-category">{{ challenge.category }}</span>
+                    <span class="challenge-difficulty difficulty-{{ challenge.difficulty|lower }}">{{ challenge.difficulty }}</span>
+                </div>
+                <div class="challenge-description">
+                    {{ challenge.description }}
+                </div>
+                {% if challenge.id in solved %}
+                <div class="challenge-solved">
+                    ✓ SOLVED
+                </div>
+                {% else %}
+                <a href="{{ url_for('challenge', challenge_id=challenge.id) }}" class="btn" style="width: 100%; text-align: center;">SOLVE</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <footer><p>&copy; 2024 CTF Competition</p></footer>
 </body>
 </html>
-

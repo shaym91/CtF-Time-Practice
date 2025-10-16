@@ -1,151 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register - CTF Competition</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .register-container {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 450px;
-            width: 100%;
-        }
-        h1 {
-            color: #667eea;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            text-align: center;
-            color: #6c757d;
-            margin-bottom: 30px;
-        }
-        .warning {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #495057;
-            font-weight: 500;
-        }
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 1em;
-        }
-        input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        button {
-            width: 100%;
-            padding: 15px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background: #5568d3;
-        }
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-        }
-        .login-link {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .login-link a {
-            color: #667eea;
-            text-decoration: none;
-        }
-    </style>
+    <title>Register - CTF 2024</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="register-container">
-        <h1>🎯 Register for CTF</h1>
-        <p class="subtitle">Individual Competition | 6 Hours</p>
-        
-        <div class="warning">
-            <strong>⚠️ {{ current_contestants }}/{{ max_contestants }} spots taken</strong>
+    <header>
+        <div class="header-content">
+            <h1>🎯 CTF COMPETITION 2024</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            </nav>
         </div>
-        
-        <div id="error" class="error"></div>
-        
-        <form id="registerForm">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" required>
-            </div>
-            
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" required>
-            </div>
-            
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" required>
-            </div>
-            
-            <button type="submit">Register</button>
-        </form>
-        
-        <div class="login-link">
-            Already registered? <a href="/login">Login here</a>
+    </header>
+    <main>
+        <div class="form-container fade-in">
+            <h2 style="text-align: center; color: var(--primary-color); font-family: 'Orbitron', sans-serif; margin-bottom: 2rem;">REGISTER</h2>
+            <form method="POST">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Register</button>
+            </form>
+            <p style="text-align: center; margin-top: 2rem;">
+                Already have an account? <a href="{{ url_for('login') }}" style="color: var(--primary-color);">Login</a>
+            </p>
         </div>
-    </div>
-    
-    <script>
-        document.getElementById('registerForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            
-            const response = await fetch('/register', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const data = await response.json();
-            
-            if (data.error) {
-                document.getElementById('error').textContent = data.error;
-                document.getElementById('error').style.display = 'block';
-            } else {
-                window.location.href = data.redirect;
-            }
-        };
-    </script>
+    </main>
+    <footer><p>&copy; 2024 CTF Competition</p></footer>
 </body>
 </html>
-

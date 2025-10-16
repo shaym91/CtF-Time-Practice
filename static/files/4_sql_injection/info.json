@@ -1,0 +1,8 @@
+{
+  "id": 4,
+  "name": "SQL Injection",
+  "category": "Web",
+  "difficulty": "Medium",
+  "points": 150,
+  "flag": "FLAG{sql_1nj3ct10n_1s_cl4ss1c}"
+}

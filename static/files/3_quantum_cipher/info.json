@@ -1,0 +1,8 @@
+{
+  "id": 3,
+  "name": "Quantum Cipher",
+  "category": "Crypto",
+  "difficulty": "Insane",
+  "points": 500,
+  "flag": "FLAG{qu4ntum_3ntr0py_br0k3n}"
+}

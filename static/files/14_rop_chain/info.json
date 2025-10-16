@@ -1,0 +1,9 @@
+{
+  "id": 14,
+  "name": "ROP Chain",
+  "category": "Pwn",
+  "difficulty": "Hard",
+  "points": 300,
+  "description": "Build a ROP chain to execute win() function.",
+  "flag": "FLAG{r0p_ch41n_c0nstruct3d}"
+}

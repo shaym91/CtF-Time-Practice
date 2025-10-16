@@ -1,0 +1,8 @@
+{
+  "id": 2,
+  "name": "RSA Madness",
+  "category": "Crypto",
+  "difficulty": "Hard",
+  "points": 300,
+  "flag": "FLAG{sm4ll_pr1m3s_ar3_b4d}"
+}

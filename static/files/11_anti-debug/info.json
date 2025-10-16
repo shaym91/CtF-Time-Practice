@@ -1,0 +1,9 @@
+{
+  "id": 11,
+  "name": "Anti-Debug",
+  "category": "Reverse",
+  "difficulty": "Hard",
+  "points": 300,
+  "description": "Binary with anti-debugging protection. Bypass it.",
+  "flag": "FLAG{4nt1_d3bug_byp4ss3d}"
+}
