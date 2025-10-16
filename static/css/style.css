@@ -1,4 +1,4 @@
-/* Modern CTF Platform Styles */
+/* Modern CTF Platform Styles - DARK Design (No Blue) */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
 
 :root {
@@ -10,6 +10,7 @@
     --success-color: #00ff41;
     --danger-color: #ff0040;
     --warning-color: #ff9500;
+    --accent-purple: #8a2be2;
 }
 
 * {
@@ -36,7 +37,7 @@ body::before {
     height: 100%;
     background: 
         radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 0, 64, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
     animation: pulse 10s ease-in-out infinite;
     z-index: -1;
 }
@@ -73,13 +74,22 @@ h1 {
     letter-spacing: 2px;
 }
 
-/* Timer */
-.timer {
+/* Timer & Countdown */
+.timer, .countdown {
     font-family: 'Orbitron', monospace;
     font-size: 1.5rem;
     color: var(--warning-color);
     text-shadow: 0 0 15px rgba(255, 149, 0, 0.6);
     animation: glow 2s ease-in-out infinite;
+}
+
+.countdown {
+    background: rgba(138, 43, 226, 0.2);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    border: 2px solid var(--accent-purple);
+    text-align: center;
+    margin: 2rem 0;
 }
 
 @keyframes glow {
@@ -241,34 +251,11 @@ main {
 .challenge-category {
     display: inline-block;
     padding: 0.3rem 1rem;
-    background: rgba(255, 149, 0, 0.2);
-    border-radius: 15px;
-    font-size: 0.9rem;
-    color: var(--warning-color);
-    margin-bottom: 1rem;
-}
-
-.challenge-difficulty {
-    padding: 0.3rem 1rem;
-    border-radius: 15px;
-    font-size: 0.9rem;
-    display: inline-block;
-    margin-left: 0.5rem;
-}
-
-.difficulty-medium {
-    background: rgba(255, 149, 0, 0.2);
-    color: var(--warning-color);
-}
-
-.difficulty-hard {
-    background: rgba(255, 0, 64, 0.2);
-    color: var(--danger-color);
-}
-
-.difficulty-insane {
     background: rgba(138, 43, 226, 0.2);
-    color: #8a2be2;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    color: var(--accent-purple);
+    margin-bottom: 1rem;
 }
 
 .challenge-description {
